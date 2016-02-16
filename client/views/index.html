@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="sixPacker">
+<head>
+  <title>SixPacker</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMH8tqhe0JVvlmQfrbLmcrRPXFiTaIvL8"></script>
+  <script src="/public/js/spiderfy.js"></script>
+  <!-- <script src="/public/js/markerclusterer.js" charset="utf-8"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-cookies.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/public/css/styles.css">
+  <script type="text/javascript" src="/public/js/app.js"></script>
+  <script type="text/javascript" src="/public/js/controllers/app_controller.js"></script>
+  <script type="text/javascript" src="/public/js/services/packsApi.js"></script>
+  <script type="text/javascript" src="/public/js/services/usersApi.js"></script>
+</head>
+<body>
+
+  <!-- BORDER -->
+  <div id="left"></div>
+  <div id="right"></div>
+  <div id="top"></div>
+  <div id="bottom"></div>
+
+  <section id="body-section" ng-controller="appController">
+
+  <!-- LOGO -->
+
+  <div id="logo-div">
+    <h5 id="cursive">Social Beer Prices, Established 2016</h5>
+    <img src="/public/images/color_logo2.png" alt="logo" id="brand-logo" class="logo rotate">
+  </div>
+
+  <!-- SIGN UP / LOG IN FORMS -->
+
+  <div class="container">
+
+    <section id="show-page-div" ng-hide="loggedIn">
+
+      <div class="row">
+
+        <div class="six columns">
+
+          <div class="sign-up" ng-hide="loggedIn">
+            <h5>Sign Up</h5>
+              <form class="sign-up-form" ng-submit="createUser(user)">
+                <input type="text" ng-model="user.username" placeholder="...username">
+                <input type="password" ng-model="user.password" placeholder="...password">
+                <input type="submit" style="display: none;">
+              </form>
+          </div>
+
+        </div>
+
+        <div class="six columns">
+
+          <div class="log-in" ng-hide="loggedIn">
+            <h5>Log In</h5>
+              <form class="log-in-form" ng-submit="logInUser(username, password)">
+                <input type="text" ng-model="username" placeholder="...username">
+                <input type="password" ng-model="password" placeholder="...password">
+                <input type="submit" style="display: none;">
+              </form>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="twelve columns">
+          <h5 id="cursive">See how much a six pack costs at a store near you.</h5>
+          <h5 id="cursive">Sign up and start adding your local stores!</h5>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+ <!-- LOGGED IN VIEW -->
+
+  <div id="welcome-div" ng-show="loggedIn">
+
+    <div class="welcome">
+
+      <h5 ng-show="loggedIn"><span id="username">{{ currentUser }}</span> <i class="fa fa-times" id="log-out-button" ng-show="loggedIn" ng-click="logOutUser()" ></i> </h5>
+      <h6 id="show-button" ng-show="loggedIn"><a ng-href="#/details">My Posts</a></h6>
+
+    </div>
+
+  </div>
+
+  <!-- MAP SECTION -->
+    <section ng-controller="mapController" ng-show="loggedIn">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="nine columns">
+
+            <div id="map">
+            </div>
+
+          </div>
+
+          <div class="three columns">
+
+            <div class="container" id="input-bar">
+              <form ng-submit="createPack(pack)" id="new-pack-form">
+                <input type="text" ng-model="pack.address" value="" placeholder="Street Address">
+                <br>
+                <input type="text" ng-model="pack.city" value="" placeholder="City">
+                <br>
+                <input type="text" ng-model="pack.brand" value="" placeholder="Beer Brand">
+                <br>
+                <input type="number" step="any" ng-model="pack.price" value="" placeholder="Price">
+                <br>
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+    </section>
+  <!-- END MAP SECTION -->
+
+  </section>
+
+  <div id="test" ng-view>
+  </div>
+
+</body>
+</html>

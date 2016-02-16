@@ -1,0 +1,179 @@
+* {
+  text-align: center;
+  margin: 0 auto;
+}
+
+body {
+  /*background-color: rgb(247, 247, 247);*/
+  background-color: white;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.fa:hover{
+  color: red;
+}
+
+#cursive{
+  margin-top: -.1em;
+  margin-bottom: .1em;
+  font-family: 'Damion', cursive;
+  color: red;
+}
+
+#top, #bottom, #left, #right {
+  background: rgb(255,0,0);
+  position: fixed;
+  z-index: 10;
+}
+
+#left, #right {
+  top: 0; bottom: 0;
+  width: 10px;
+}
+
+#left {
+  left: 0;
+}
+
+#right {
+  right: 0;
+}
+
+#top, #bottom {
+  left: 0; right: 0;
+  height: 10px;
+}
+
+#top {
+  top: 0;
+}
+
+#bottom {
+  bottom: 0;
+}
+
+#map{
+  height: 400px;
+  width: 100%;
+  background-color: rgb(247, 247, 247);
+}
+
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+}
+
+.gmnoprint div {
+    background: none !important;
+}
+
+#show-page-div{
+  display: block;
+}
+
+#logo-div{
+  padding-top: 1.5em;
+  margin-bottom: .5em;
+  z-index: 100;
+}
+
+#brand-logo{
+  width: 11em;
+}
+
+.logo:hover {
+  transform: rotate(360deg);
+}
+.rotate {
+  transition: all .8s ease-in-out;
+}
+.rotate:hover {
+  transition: all 1s ease-in-out;
+}
+
+#username{
+  color: black;
+}
+
+#welcome-div{
+   position:absolute;
+   /*padding: 1.5em;*/
+   margin-top: .8em;
+   margin-right: 1.3em;
+   top:0;
+   right:0;
+}
+
+.welcome{
+  vertical-align: middle !important;
+}
+
+#input-bar{
+  text-align: center;
+  position: relative;
+  margin-top: 5em;
+}
+
+.map-info-window{
+  background-color: rgba(245,245,245,.7);
+}
+
+.infoWindowContent{
+  line-height: 20%;
+  padding: .5em;
+  /*background-color: rgba(245,245,245,.7);*/
+}
+
+#show-button{
+  margin-top: -1.5em;
+}
+
+#test{
+  margin-top: 1em;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  color: red;
+}
+
+#pack-list{
+  display: inline-block;
+  padding: 2em;
+  margin-top: -2em;
+}
+
+@media screen and (max-width: 480px){
+  #map{
+    height: 350px;
+    /*width: 400px;*/
+  }
+
+  #input-bar{
+    margin-top: 1em;
+  }
+
+  #brand-logo{
+    width: 9em;
+  }
+
+  #welcome-div{
+    margin-top: .4em;
+    margin-right: .8em;
+    font-size: 1em;
+  }
+
+ /* #input-bar{
+    display: inline-block;
+  }*/
+
+}

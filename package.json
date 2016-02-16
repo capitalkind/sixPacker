@@ -1,0 +1,27 @@
+{
+  "name": "six-packer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-google-maps": "^2.3.1",
+    "angular-ui-router": "^0.2.18",
+    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.1",
+    "crypto": "0.0.3",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.2",
+    "mongoose-currency": "^0.2.0",
+    "rand-token": "^0.2.1"
+  }
+}
