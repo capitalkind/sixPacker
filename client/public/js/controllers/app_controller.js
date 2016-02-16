@@ -98,6 +98,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
 
     var theMap = {};
 
+    var selectedInfoWindow;
 
     theMap.initMap = function(){
 
@@ -145,7 +146,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
 
 
       $scope.packDetails = function(pack){
-        return '<div class="infoWindowContent"><h6>' + 'Posted by ' + pack.username + '</h6><p>' + pack.address + '</p><p>' + 'Brand: ' + pack.brand + '</p><p>' + 'Price: $' + pack.price.toFixed(2) + '</p></div>';
+        return '<div class="infoWindowContent"><h6>' + 'Posted by ' + pack.username + '</h6><p>' + pack.address + '</p>' + '<p>' + pack.city + '</p>' + '<p>' + 'Brand: ' + pack.brand + '</p><p>' + 'Price: $' + pack.price.toFixed(2) + '</p></div>';
       }
 
       $scope.infoWindow = function(marker, pack){
@@ -157,8 +158,17 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
         })
 
         google.maps.event.addListener(marker, 'click', function() {
-          console.log('clicked')
-          iw.open(theMap.map, marker);
+          if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null){
+            selectedInfoWindow.close();
+            if (selectedInfoWindow == iw) {
+              selectedInfoWindow = null;
+              return;
+            }
+          }
+          selectedInfoWindow = iw;
+          selectedInfoWindow.open(theMap.map, marker);
+          // console.log('clicked')
+          // iw.open(theMap.map, marker);
         });
 
         // google.maps.event.addListener(iw, 'click', function() {
@@ -192,7 +202,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
             map: theMap.map,
             position: new google.maps.LatLng(pack.position.lat, pack.position.lng)
             // draggable: true
-            // icon: icon
+            // icon: './public/images/icon.png'
         });
         $scope.infoWindow(marker, pack)
         marker.setMap(theMap.map);
@@ -210,7 +220,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
         })
       }
 
-      // var mc = new MarkerClusterer(map);
+    // var markerCluster = new MarkerClusterer(theMap.map);
 
     }
 
