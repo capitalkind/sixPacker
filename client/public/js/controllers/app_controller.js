@@ -220,7 +220,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
         })
       }
 
-    // var markerCluster = new MarkerClusterer(theMap.map);
+    // var markerCluster = new MarkerClusterer(theMap.map, packs);
 
     }
 
