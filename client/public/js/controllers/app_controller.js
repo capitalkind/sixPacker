@@ -109,7 +109,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
       this.zoom;
 
       this.mapEl = document.querySelector('#map');
-      this.zoom = 15;
+      this.zoom = 16;
       navigator.geolocation.getCurrentPosition(function(position) {
         scope.init(position.coords)
       })
@@ -174,8 +174,10 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
 
           packsApi.getPackLatLng(pack).then(function (response){
             console.log(response)
-            pack.position.lat = response.data.results[0].geometry.location.lat;
-            pack.position.lng = response.data.results[0].geometry.location.lng;
+            var min = .999999;
+            var max = 1.000002;
+            pack.position.lat = response.data.results[0].geometry.location.lat * (Math.random() * (max - min) + min);
+            pack.position.lng = response.data.results[0].geometry.location.lng * (Math.random() * (max - min) + min);
             packsApi.createPack(pack).then(function (response){
               $scope.packs.push(response.data)
               $scope.pack = {};
@@ -208,8 +210,10 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
         })
       }
 
+      // var mc = new MarkerClusterer(map);
 
     }
+
 
 
   $rootScope.mapTime = function(){
