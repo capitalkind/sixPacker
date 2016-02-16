@@ -94,7 +94,6 @@ control.controller('appController', ['$scope', '$rootScope', '$http', '$location
 
 control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$location', 'packsApi', function($scope, $rootScope, $cookies, $location, packsApi){
 
-
   $scope.packs = [];
 
     var theMap = {};
