@@ -6,10 +6,10 @@ control.config(['$routeProvider', function( $routeProvider ){
     templateUrl: '/views/partials/pack-details.html',
     controller: 'detailsController'
   })
-  .when('/edit/', {
-    templateUrl: '/views/partials/edit.html',
-    controller: 'editController'
-  })
+  // .when('/edit/', {
+  //   templateUrl: '/views/partials/edit.html',
+  //   controller: 'editController'
+  // })
   .otherwise({
     redirectTo: '/'
   });
@@ -18,6 +18,10 @@ control.config(['$routeProvider', function( $routeProvider ){
 }])
 
 control.controller('appController', ['$scope', '$rootScope', '$http', '$location', '$cookies', 'usersApi', 'packsApi', function($scope, $rootScope, $http, $location, $cookies, usersApi, packsApi){
+
+  $scope.isActive = function(viewLocation) {
+    return viewLocation === $location.path();
+  };
 
   $scope.packs = [];
 
@@ -100,6 +104,10 @@ control.controller('appController', ['$scope', '$rootScope', '$http', '$location
 
 control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$location', 'packsApi', function($scope, $rootScope, $cookies, $location, packsApi){
 
+  $scope.isActive = function(viewLocation) {
+    return viewLocation === $location.path();
+  };
+
   $scope.packs = [];
 
     var theMap = {};
@@ -122,12 +130,24 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
       })
 
       this.init = function(position){
+
+        var styleArray = [
+           {
+            featureType: "poi.business",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
+
         scope.currentLatLng = new google.maps.LatLng(position.latitude, position.longitude);
         scope.map = new google.maps.Map(scope.mapEl, {
           center: scope.currentLatLng,
           zoom: scope.zoom,
           mapTypeControl: false,
           streetViewControl: false,
+          styles: styleArray,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
@@ -146,13 +166,16 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
           animation: google.maps.Animation.DROP
         });
 
+        // google.maps.event.addListener(theMap.map, 'idle', function(){
+        //   $scope.getAllPacks();
+        // });
         $scope.getAllPacks();
 
       }
 
 
       $scope.packDetails = function(pack){
-        return '<div class="infoWindowContent"><h6>' + 'Posted by ' + pack.username + '</h6><p>' + pack.address + '</p>' + '<p>' + pack.city + '</p>' + '<p>' + 'Brand: ' + pack.brand + '</p><p>' + 'Price: $' + pack.price.toFixed(2) + '</p></div>';
+        return '<div class="infoWindowContent"><h6>' + 'Posted by ' + '<span class="redspan">' + pack.username + '</span>' + '</h6><p>' + pack.address + '</p>' + '<p>' + pack.city + '</p>' + '<p>' + 'Brand: ' + pack.brand + '</p><p>' + 'Price: $' + pack.price.toFixed(2) + '</p></div>';
       }
 
 
@@ -235,16 +258,20 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
 
 control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cookies', '$location', 'usersApi', 'packsApi', '$routeParams', function($scope, $rootScope, $http, $cookies, $location, usersApi, packsApi, $routeParams){
 
+  $scope.isActive = function(viewLocation) {
+    return viewLocation === $location.path();
+  };
+
   $rootScope.renderUserPacks = function(){
     packsApi.getAllPacks().then(function(response){
     var data = response.data.packs;
     var curUsername = $rootScope.currentUser;
-    console.log(curUsername)
-    console.log(data)
+    // console.log(curUsername)
+    // console.log(data)
     $scope.packs = []
     for(var i = 0; i < data.length; i++){
       if(data[i].username === curUsername){
-         console.log(data[i].username, data[i].price)
+         // console.log(data[i].username, data[i].price)
          $scope.packs.push(data[i]);
         }
       }
@@ -268,23 +295,23 @@ control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cook
   }
 
 
-  $scope.changeRoute = function(){
-    $location.path('/edit')
-  }
+  // $scope.changeRoute = function(){
+  //   $location.path('/edit')
+  // }
 
 $rootScope.renderUserPacks();
 
 }]);
 
 
-control.controller('editController', ['$scope', '$rootScope', '$http', '$cookies', '$location', 'usersApi', 'packsApi', '$routeParams', function($scope, $rootScope, $http, $cookies, $location, usersApi, packsApi, $routeParams){
+// control.controller('editController', ['$scope', '$rootScope', '$http', '$cookies', '$location', 'usersApi', 'packsApi', '$routeParams', function($scope, $rootScope, $http, $cookies, $location, usersApi, packsApi, $routeParams){
 
 
-  $scope.updatePack = function(id){
-    packsApi.updatePack(id).then(function (response){
-      $scope.packs = response.data.packs
-    })
-    $rootScope.mapTime();
-  }
+//   $scope.updatePack = function(id){
+//     packsApi.updatePack(id).then(function (response){
+//       $scope.packs = response.data.packs
+//     })
+//     $rootScope.mapTime();
+//   }
 
-}]);
+// }]);
