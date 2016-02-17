@@ -200,9 +200,9 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
       $scope.newMarker = function(pack){
         var marker = new google.maps.Marker({
             map: theMap.map,
-            position: new google.maps.LatLng(pack.position.lat, pack.position.lng)
+            position: new google.maps.LatLng(pack.position.lat, pack.position.lng),
             // draggable: true
-            // icon: './public/images/icon.png'
+            icon: './public/images/icon.png'
         });
         $scope.infoWindow(marker, pack)
         marker.setMap(theMap.map);
