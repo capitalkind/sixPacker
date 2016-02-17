@@ -6,10 +6,6 @@ control.config(['$routeProvider', function( $routeProvider ){
     templateUrl: '/views/partials/pack-details.html',
     controller: 'detailsController'
   })
-  // .when('/edit/', {
-  //   templateUrl: '/views/partials/edit.html',
-  //   controller: 'editController'
-  // })
   .otherwise({
     redirectTo: '/'
   });
@@ -166,9 +162,6 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
           animation: google.maps.Animation.DROP
         });
 
-        // google.maps.event.addListener(theMap.map, 'idle', function(){
-        //   $scope.getAllPacks();
-        // });
         $scope.getAllPacks();
 
       }
@@ -264,15 +257,16 @@ control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cook
 
   $rootScope.renderUserPacks = function(){
     packsApi.getAllPacks().then(function(response){
+
     var data = response.data.packs;
     var curUsername = $rootScope.currentUser;
-    // console.log(curUsername)
-    // console.log(data)
+
     $scope.packs = []
+
     for(var i = 0; i < data.length; i++){
       if(data[i].username === curUsername){
-         // console.log(data[i].username, data[i].price)
          $scope.packs.push(data[i]);
+
         }
       }
     });
@@ -295,23 +289,7 @@ control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cook
   }
 
 
-  // $scope.changeRoute = function(){
-  //   $location.path('/edit')
-  // }
-
 $rootScope.renderUserPacks();
 
 }]);
 
-
-// control.controller('editController', ['$scope', '$rootScope', '$http', '$cookies', '$location', 'usersApi', 'packsApi', '$routeParams', function($scope, $rootScope, $http, $cookies, $location, usersApi, packsApi, $routeParams){
-
-
-//   $scope.updatePack = function(id){
-//     packsApi.updatePack(id).then(function (response){
-//       $scope.packs = response.data.packs
-//     })
-//     $rootScope.mapTime();
-//   }
-
-// }]);

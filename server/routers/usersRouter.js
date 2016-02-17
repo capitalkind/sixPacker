@@ -1,9 +1,7 @@
-// ~~~~~~~~~~MODULES~~~~~~~~~~~~~ //
 var express = require('express');
 var usersRouter = express.Router();
 var User = require('../models/user');
 
-//~~~~~
 
 usersRouter.get('/', function(req, res){
   User.find({}, function (err, databaseUser){
@@ -43,5 +41,6 @@ usersRouter.post('/authenticate', function(req, res){
     }
   });
 });
+
 
 module.exports = usersRouter;
