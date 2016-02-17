@@ -122,6 +122,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
           zoom: scope.zoom,
           mapTypeControl: false,
           streetViewControl: false,
+          scrollwheel: false,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
