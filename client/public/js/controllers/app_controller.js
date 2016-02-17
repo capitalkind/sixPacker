@@ -29,11 +29,13 @@ control.controller('appController', ['$scope', '$rootScope', '$http', '$location
     token: null
   }
 
+
    $scope.createUser = function(user){
     usersApi.createUser(user).then(function(response){
       $scope.logInUser(user.username, user.password);
     });
   }
+
 
    $scope.logInUser = function(username, password ){
     usersApi.authenticate(username, password).then(function(response){
@@ -47,19 +49,21 @@ control.controller('appController', ['$scope', '$rootScope', '$http', '$location
     });
   }
 
+
   $scope.cookieTime = function(response){
     $cookies.put('user', response.config.data.username);
     $cookies.put('token', response.data.token);
   }
 
+
   $scope.getUser = function(response){
     $rootScope.currentUser = response.config.data.username;
     $scope.loggedIn = true;
     $scope.loggedOut = false;
-    // $rootScope.mapTime();
     $scope.username = '';
     $scope.password = '';
   }
+
 
   $scope.logOutUser = function(){
     $cookies.remove('token');
@@ -69,6 +73,7 @@ control.controller('appController', ['$scope', '$rootScope', '$http', '$location
     $scope.loggedOut = true;
     $location.path('#/')
   }
+
 
   $scope.tokenTime = function(){
     var token = $cookies.get('token');
@@ -81,6 +86,7 @@ control.controller('appController', ['$scope', '$rootScope', '$http', '$location
       $scope.loggedIn = false;
     }
   }
+
 
   var cheersBud = function () {
    $scope.tokenTime();
@@ -129,9 +135,9 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
           theMap.map.setCenter(scope.currentLatLng);
         });
 
-        // var iw = new google.maps.InfoWindow();
-        // var oms = new OverlappingMarkerSpiderfier(theMap.map,
-        //   {markersWontMove: true, markersWontHide: true});
+        google.maps.event.addListener(theMap.map, 'click', function(){
+          selectedInfoWindow.close(theMap.map, selectedInfoWindow);
+        })
 
         var userMarker = new google.maps.Marker({
           icon: './public/images/user.png',
@@ -149,9 +155,8 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
         return '<div class="infoWindowContent"><h6>' + 'Posted by ' + pack.username + '</h6><p>' + pack.address + '</p>' + '<p>' + pack.city + '</p>' + '<p>' + 'Brand: ' + pack.brand + '</p><p>' + 'Price: $' + pack.price.toFixed(2) + '</p></div>';
       }
 
-      $scope.infoWindow = function(marker, pack){
 
-        // var oms = new OverlappingMarkerSpiderfier(theMap.map);
+      $scope.infoWindow = function(marker, pack){
 
         var iw = new google.maps.InfoWindow({
           content: $scope.packDetails(pack)
@@ -167,13 +172,7 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
           }
           selectedInfoWindow = iw;
           selectedInfoWindow.open(theMap.map, marker);
-          // console.log('clicked')
-          // iw.open(theMap.map, marker);
         });
-
-        // google.maps.event.addListener(iw, 'click', function() {
-        //   iw.close(theMap.map, marker);
-        // });
 
       }
 
@@ -197,33 +196,30 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
           })
         }
 
+
       $scope.newMarker = function(pack){
+
         var marker = new google.maps.Marker({
             map: theMap.map,
             position: new google.maps.LatLng(pack.position.lat, pack.position.lng),
-            // draggable: true
             icon: './public/images/icon.png'
         });
+
         $scope.infoWindow(marker, pack)
         marker.setMap(theMap.map);
       }
 
       $scope.getAllPacks = function(){
         packsApi.getAllPacks().then(function (response){
-          // console.log(response);
           $scope.packs = response.data.packs
 
           $scope.packs.forEach(function (pack) {
-          // console.log(pack)
           $scope.newMarker(pack);
           })
         })
       }
 
-    // var markerCluster = new MarkerClusterer(theMap.map, packs);
-
     }
-
 
 
   $rootScope.mapTime = function(){
@@ -245,19 +241,16 @@ control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cook
     var curUsername = $rootScope.currentUser;
     console.log(curUsername)
     console.log(data)
-    // console.log(data[2].username)
-    // console.log(data.packs.filter( getUserName ))
     $scope.packs = []
     for(var i = 0; i < data.length; i++){
       if(data[i].username === curUsername){
          console.log(data[i].username, data[i].price)
-         // return data[i].username;
          $scope.packs.push(data[i]);
-         // $scope.pack = {};
         }
       }
     });
   }
+
 
   $scope.getAllPacks = function(){
       packsApi.getAllPacks().then(function (response){
@@ -266,12 +259,14 @@ control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cook
       $rootScope.mapTime();
     }
 
+
   $scope.deletePack = function(id){
     packsApi.deletePack(id).then(function(response){
       $scope.getAllPacks();
       $rootScope.renderUserPacks();
     });
   }
+
 
   $scope.changeRoute = function(){
     $location.path('/edit')
@@ -284,7 +279,6 @@ $rootScope.renderUserPacks();
 
 control.controller('editController', ['$scope', '$rootScope', '$http', '$cookies', '$location', 'usersApi', 'packsApi', '$routeParams', function($scope, $rootScope, $http, $cookies, $location, usersApi, packsApi, $routeParams){
 
-  // $scope.packs = $scope.packs[$routeParams.id];
 
   $scope.updatePack = function(id){
     packsApi.updatePack(id).then(function (response){
