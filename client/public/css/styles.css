@@ -203,8 +203,12 @@ a:hover{
     font-size: 1em;
   }
 
+  #new-pack-form{
+    margin-bottom: 1em;
+  }
+
   #detail-div{
-    margin-top: .8em;
+    margin-top: .5em;
     margin-right: -.2em;
     font-size: .5em;
   }
