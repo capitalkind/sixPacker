@@ -109,8 +109,18 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
    right:0;
 }
 
+#detail-div{
+   position:absolute;
+   /*padding: 1.5em;*/
+   margin-top: .8em;
+   margin-right: 1.3em;
+   top: 2em;
+   right: 1.6em;
+}
+
 .welcome{
   vertical-align: middle !important;
+  text-align: right;
 }
 
 #input-bar{
@@ -129,10 +139,12 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   /*background-color: rgba(245,245,245,.7);*/
 }
 
-.detail-button{
+/*.detail-button{
+  position: absolute;
   margin-top: -1.5em;
-  /*padding-right: .5em;*/
-}
+  text-align: right;
+  margin-right: 1.7em;
+}*/
 
 #test{
   margin-top: 1em;
@@ -191,12 +203,25 @@ a:hover{
     font-size: 1em;
   }
 
-  #details{
-    margin-top: -1.5em;
+  #detail-div{
+    margin-top: .5em;
+    margin-right: -.2em;
+    font-size: .5em;
   }
 
- /* #input-bar{
-    display: inline-block;
-  }*/
+  #username{
+    display: none;
+    text-align: right;
+    margin-right: 0;
+  }
+
+  #user-logout-button{
+    text-align: right;
+  }
+
+  #log-out-button{
+    text-align: right;
+    padding-right: -5em;
+  }
 
 }

@@ -91,8 +91,17 @@
 
     <div class="welcome">
 
-      <h5 ng-show="loggedIn"><span id="username">{{ currentUser }}</span> <i class="fa fa-times" id="log-out-button" ng-show="loggedIn" ng-click="logOutUser()" ></i> </h5>
-      <h6 class="detail-button" ng-hide="isActive('/details')" ><a ng-href="#/details">My Posts</a></h6>
+      <h5 id="user-logout-button" ng-show="loggedIn"><span id="username">{{ currentUser }}</span> <i class="fa fa-times" id="log-out-button" ng-show="loggedIn" ng-click="logOutUser()" ></i> </h5>
+
+    </div>
+
+  </div>
+
+  <div id="detail-div" ng-show="loggedIn">
+
+    <div class="button-div">
+
+      <h6 class="detail-button" ng-hide="isActive('/details')" ><a ng-href="#/details">Show Posts</a></h6>
       <h6 class="detail-button" ng-hide="isActive('/')"><a ng-href="#/">Hide Posts</a></h6>
 
     </div>
