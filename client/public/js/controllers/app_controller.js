@@ -168,7 +168,9 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
 
 
       $scope.packDetails = function(pack){
+
         return '<div class="infoWindowContent"><h6>' + 'Posted by ' + '<span class="redspan">' + pack.username + '</span>' + '</h6><p>' + pack.address + '</p>' + '<p>' + pack.city + '</p>' + '<p>' + 'Brand: ' + pack.brand + '</p><p>' + 'Price: $' + pack.price.toFixed(2) + '</p></div>';
+
       }
 
 
@@ -194,20 +196,24 @@ control.controller('mapController', ['$scope', '$rootScope', '$cookies', '$locat
 
 
       $scope.createPack = function(pack){
+
         pack.username = $cookies.get('user');
         pack.position = {};
 
           packsApi.getPackLatLng(pack).then(function (response){
-            console.log(response)
+
             var min = .999999;
             var max = 1.000002;
+
             pack.position.lat = response.data.results[0].geometry.location.lat * (Math.random() * (max - min) + min);
             pack.position.lng = response.data.results[0].geometry.location.lng * (Math.random() * (max - min) + min);
+
             packsApi.createPack(pack).then(function (response){
               $scope.packs.push(response.data)
               $scope.pack = {};
               $scope.newMarker(response.data);
               $rootScope.renderUserPacks();
+
             })
           })
         }

@@ -4,9 +4,9 @@ var express       = require('express'),
     mongoose      = require('mongoose'),
     favicon       = require('serve-favicon');
 
-require('dotenv').load()
-
 var app           = express();
+
+require('dotenv').load()
 
 app.use(express.static('./client'));
 app.set('views', __dirname + '/client/views')

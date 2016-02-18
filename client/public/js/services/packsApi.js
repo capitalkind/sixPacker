@@ -19,11 +19,6 @@ api.factory('packsApi', ['$http', function( $http ){
     return $http.delete( basePacksUrl + id );
   }
 
-  packsInterface.updatePack = function( pack, id ){
-    var payload = { pack: pack }
-    return $http.patch( basePacksUrl + id, payload );
-  }
-
   packsInterface.getPackLatLng = function( pack ){
     var geocodeLink = 'https://maps.googleapis.com/maps/api/geocode/json?address='+pack.address+','+pack.city
     return $http.get( geocodeLink );
