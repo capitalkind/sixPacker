@@ -1,8 +1,5 @@
 var mongoose = require('mongoose');
 
-require('mongoose-currency').loadType(mongoose);
-var Currency = mongoose.Types.Currency;
-
 
 var PackSchema = mongoose.Schema({
   username: { type: String, required: true },
