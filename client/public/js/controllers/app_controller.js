@@ -11,7 +11,7 @@ control.config(['$routeProvider', function( $routeProvider ){
   });
 
 
-}])
+}]);
 
 control.controller('appController', ['$scope', '$rootScope', '$http', '$location', '$cookies', 'usersApi', 'packsApi', function($scope, $rootScope, $http, $location, $cookies, usersApi, packsApi){
 
@@ -254,6 +254,7 @@ control.controller('detailsController', ['$scope', '$rootScope', '$http', '$cook
   $scope.isActive = function(viewLocation) {
     return viewLocation === $location.path();
   };
+
 
   $rootScope.renderUserPacks = function(){
     packsApi.getAllPacks().then(function(response){
